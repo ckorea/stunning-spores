@@ -12,20 +12,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Bungee&display=swap');
         body { font-family: 'Roboto', sans-serif; background-color: #010A13; color: #C8AA6E; }
         h1, h2, h3 { font-family: 'Bungee', cursive; }
-        .typewriter p {
-            display: inline-block;
-            overflow: hidden;
-            border-right: 0.15em solid #C8AA6E;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-caret {
-            50% { border-color: transparent; }
-        }
         .character-card:hover {
             transform: scale(1.05);
             border-color: #FFD700;
@@ -37,7 +23,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useRef } = React;
+        const { useState, useRef, useEffect } = React;
 
         const characters = [
             { name: 'Matthew', description: 'Musical genius, gentle giant, League bot laner' },
@@ -66,7 +52,7 @@
         ];
 
         function playClickSound() {
-            const audio = new Audio('https://freesound.org/data/previews/171/171671_2437358-lq.mp3'); // Add a click sound effect URL.
+            const audio = new Audio('https://freesound.org/data/previews/171/171671_2437358-lq.mp3');
             audio.play();
         }
 
@@ -150,13 +136,19 @@
                 changeEvent(storyEvents.length - 1);
             };
 
+            useEffect(() => {
+                if (textContainerRef.current) {
+                    textContainerRef.current.scrollTop = 0;
+                }
+            }, [currentEvent]);
+
             return (
                 <div className="p-4 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
                     <div className="w-full max-w-3xl bg-gray-900 border-4 border-yellow-600 p-8 shadow-2xl relative overflow-hidden rounded-lg">
                         <h1 className="text-4xl font-bold text-center mb-6 text-yellow-400">The Chronicles of League Night</h1>
                         
                         <div className="mb-8 relative">
-                            <div ref={textContainerRef} className="h-80 overflow-y-auto mb-4 relative bg-gray-800 border-2 border-yellow-600 p-6 shadow-inner rounded-lg typewriter">
+                            <div ref={textContainerRef} className="h-80 overflow-y-auto mb-4 relative bg-gray-800 border-2 border-yellow-600 p-6 shadow-inner rounded-lg">
                                 <p className="text-lg text-gray-300">
                                     {storyEvents[currentEvent]}
                                 </p>
