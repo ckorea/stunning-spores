@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Gamepad2, Music, Calculator, Mic2, Cross, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
+const { useState, useEffect, useRef } = React;
+const { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } = lucide.icons;
 
 const characters = [
-  { name: 'Matthew', icon: <Music />, color: 'bg-blue-500', description: 'Musical genius, gentle giant, League bot laner' },
-  { name: 'Josh', icon: <Calculator />, color: 'bg-green-500', description: 'Goofy tax accountant, reformed toxic gamer' },
-  { name: 'Kevin', icon: <Mic2 />, color: 'bg-pink-500', description: 'K-pop stan, preschool teacher' },
-  { name: 'Shane', icon: <Cross />, color: 'bg-purple-500', description: 'Church worker, whisky lover, tactical gamer' },
+  { name: 'Matthew', description: 'Musical genius, gentle giant, League bot laner' },
+  { name: 'Josh', description: 'Goofy tax accountant, reformed toxic gamer' },
+  { name: 'Kevin', description: 'K-pop stan, preschool teacher' },
+  { name: 'Shane', description: 'Church worker, whisky lover, tactical gamer' },
 ];
 
 const storyEvents = [
@@ -29,10 +27,11 @@ const storyEvents = [
   "'Same time next year, you beautiful bastards?' Matthew asked hopefully. The chorus of 'fuck yeah' was all the answer he needed."
 ];
 
-export default function LeagueNightStory() {
+function LeagueNightStory() {
   const [currentEvent, setCurrentEvent] = useState(0);
   const [nextEvent, setNextEvent] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [pageTurnDirection, setPageTurnDirection] = useState('next');
   const textContainerRef = useRef(null);
 
   useEffect(() => {
@@ -48,91 +47,73 @@ export default function LeagueNightStory() {
     }
   }, [isTransitioning, nextEvent]);
 
-  const changeEvent = (newEvent) => {
+  const changeEvent = (newEvent, direction) => {
     if (newEvent !== currentEvent && !isTransitioning) {
       setNextEvent(newEvent);
       setIsTransitioning(true);
+      setPageTurnDirection(direction);
     }
   };
 
   const goToNext = () => {
-    changeEvent(Math.min(currentEvent + 1, storyEvents.length - 1));
+    changeEvent(Math.min(currentEvent + 1, storyEvents.length - 1), 'next');
   };
 
   const goToPrevious = () => {
-    changeEvent(Math.max(currentEvent - 1, 0));
+    changeEvent(Math.max(currentEvent - 1, 0), 'prev');
   };
 
   const goToStart = () => {
-    changeEvent(0);
+    changeEvent(0, 'prev');
   };
 
   const goToEnd = () => {
-    changeEvent(storyEvents.length - 1);
+    changeEvent(storyEvents.length - 1, 'next');
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <Card className="mb-4">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">A Night of League, Friendship, and Chaos</CardTitle>
-          <CardDescription>Four childhood friends reunite for an unforgettable gaming night</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div ref={textContainerRef} className="h-48 overflow-y-auto mb-4 relative">
-            <div className="absolute inset-0 transition-opacity duration-500 ease-in-out" 
-                 style={{opacity: isTransitioning ? 0 : 1}}>
-              <p className="text-lg">{storyEvents[currentEvent]}</p>
-            </div>
-            <div className="absolute inset-0 transition-opacity duration-500 ease-in-out" 
-                 style={{opacity: isTransitioning ? 1 : 0}}>
-              <p className="text-lg">{storyEvents[nextEvent]}</p>
+    <div className="p-4 max-w-4xl mx-auto bg-cover min-h-screen font-serif text-stone-800 flex items-center justify-center">
+      <div className="w-full max-w-3xl bg-yellow-50 border-8 border-double border-amber-900 p-8 shadow-2xl relative overflow-hidden">
+        <h1 className="text-4xl font-bold text-center mb-6 text-amber-900 relative z-10">The Chronicles of League Night</h1>
+        
+        <div className="mb-8 relative">
+          <div ref={textContainerRef} className="h-80 overflow-hidden mb-4 relative bg-amber-50 border-2 border-amber-900 p-6 shadow-inner">
+            <div className={`absolute inset-0 transition-opacity duration-500 ease-in-out p-6 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+              <p className="text-lg first-letter:text-5xl first-letter:float-left first-letter:mr-2 first-letter:mt-1">{storyEvents[currentEvent]}</p>
             </div>
           </div>
-          <div className="flex justify-between mb-4">
-            {characters.map((char) => (
-              <div key={char.name} className={`${char.color} p-2 rounded-full`} title={char.description}>
-                {char.icon}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-between items-center">
+        </div>
+        
+        <div className="flex justify-between items-center mb-8 relative z-10">
           <div className="flex space-x-2">
-            <Button onClick={goToStart} disabled={currentEvent === 0 || isTransitioning}>
-              <ChevronsLeft className="w-4 h-4" />
-            </Button>
-            <Button onClick={goToPrevious} disabled={currentEvent === 0 || isTransitioning}>
-              <ChevronLeft className="w-4 h-4" />
-            </Button>
+            <button onClick={goToStart} disabled={currentEvent === 0 || isTransitioning} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+              <ChevronsLeft size={16} />
+            </button>
+            <button onClick={goToPrevious} disabled={currentEvent === 0 || isTransitioning} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+              <ChevronLeft size={16} />
+            </button>
           </div>
-          <span className="text-sm text-gray-500">
-            Event {currentEvent + 1} of {storyEvents.length}
+          <span className="text-sm text-amber-900 font-bold">
+            Chapter {currentEvent + 1} of {storyEvents.length}
           </span>
           <div className="flex space-x-2">
-            <Button onClick={goToNext} disabled={currentEvent === storyEvents.length - 1 || isTransitioning}>
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-            <Button onClick={goToEnd} disabled={currentEvent === storyEvents.length - 1 || isTransitioning}>
-              <ChevronsRight className="w-4 h-4" />
-            </Button>
+            <button onClick={goToNext} disabled={currentEvent === storyEvents.length - 1 || isTransitioning} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+              <ChevronRight size={16} />
+            </button>
+            <button onClick={goToEnd} disabled={currentEvent === storyEvents.length - 1 || isTransitioning} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+              <ChevronsRight size={16} />
+            </button>
           </div>
-        </CardFooter>
-      </Card>
-      <div className="grid grid-cols-2 gap-4">
-        {characters.map((char) => (
-          <Card key={char.name}>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <span className={`${char.color} p-2 rounded-full mr-2`}>{char.icon}</span>
-                {char.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>{char.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+        </div>
+        
+        <div className="grid grid-cols-2 gap-4 relative z-10">
+          {characters.map((char) => (
+            <div key={char.name} className="bg-amber-50 p-4 border-2 border-amber-900 shadow-md">
+              <h3 className="text-xl font-bold mb-2 text-amber-900">{char.name}</h3>
+              <p className="text-sm">{char.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
