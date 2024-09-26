@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
@@ -27,106 +27,23 @@
         console.log('Script is running');
 
         const { useState, useEffect, useRef } = React;
-        const { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } = lucide.icons;
+        // Remove the lucide.icons destructuring for now
+        // const { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } = lucide.icons;
 
         // Simplified component for testing
         function LeagueNightStory() {
-            return <h1 className="text-3xl font-bold text-center">Hello, League Night Story World!</h1>;
-        }
-
-        // Uncomment the following code block once the simple component works
-        /*
-        const characters = [
-            { name: 'Matthew', description: 'Musical genius, gentle giant, League bot laner' },
-            { name: 'Josh', description: 'Goofy tax accountant, reformed toxic gamer' },
-            { name: 'Kevin', description: 'K-pop stan, preschool teacher' },
-            { name: 'Shane', description: 'Church worker, whisky lover, tactical gamer' },
-        ];
-
-        const storyEvents = [
-            "It was a crisp Bay Area evening when Matthew, a musical savant with the social grace of a well-meaning golden retriever on espresso, flung open the door to his apartment. He'd transformed the place into a gamer's paradise that looked like Summoner's Rift had a drunken one-night stand with a Guitar Center.",
-            "'Holy shit, you made it!' Matthew exclaimed, his voice a cocktail of excitement and nerves. He was sporting a homemade Teemo hat that made him look like a six-foot-tall mushroom who'd stumbled into a League cosplay competition by mistake.",
-            // ... (rest of the story events)
-        ];
-
-        function LeagueNightStory() {
-            const [currentEvent, setCurrentEvent] = useState(0);
-            const textContainerRef = useRef(null);
-
-            const changeEvent = (newEvent) => {
-                setCurrentEvent(newEvent);
-                if (textContainerRef.current) {
-                    textContainerRef.current.scrollTop = 0;
-                }
-            };
-
-            const goToNext = () => {
-                changeEvent(Math.min(currentEvent + 1, storyEvents.length - 1));
-            };
-
-            const goToPrevious = () => {
-                changeEvent(Math.max(currentEvent - 1, 0));
-            };
-
-            const goToStart = () => {
-                changeEvent(0);
-            };
-
-            const goToEnd = () => {
-                changeEvent(storyEvents.length - 1);
-            };
-
             return (
                 <div className="p-4 max-w-4xl mx-auto bg-yellow-50 min-h-screen flex items-center justify-center">
                     <div className="w-full max-w-3xl bg-white border-8 border-double border-amber-900 p-8 shadow-2xl relative overflow-hidden">
                         <h1 className="text-4xl font-bold text-center mb-6 text-amber-900">The Chronicles of League Night</h1>
-                        
-                        <div className="mb-8 relative">
-                            <div ref={textContainerRef} className="h-80 overflow-y-auto mb-4 relative bg-amber-50 border-2 border-amber-900 p-6 shadow-inner">
-                                <p className="text-lg first-letter:text-5xl first-letter:float-left first-letter:mr-2 first-letter:mt-1">
-                                    {storyEvents[currentEvent]}
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div className="flex justify-between items-center mb-8">
-                            <div className="flex space-x-2">
-                                <button onClick={goToStart} disabled={currentEvent === 0} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
-                                    <ChevronsLeft size={16} />
-                                </button>
-                                <button onClick={goToPrevious} disabled={currentEvent === 0} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
-                                    <ChevronLeft size={16} />
-                                </button>
-                            </div>
-                            <span className="text-sm text-amber-900 font-bold">
-                                Chapter {currentEvent + 1} of {storyEvents.length}
-                            </span>
-                            <div className="flex space-x-2">
-                                <button onClick={goToNext} disabled={currentEvent === storyEvents.length - 1} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
-                                    <ChevronRight size={16} />
-                                </button>
-                                <button onClick={goToEnd} disabled={currentEvent === storyEvents.length - 1} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
-                                    <ChevronsRight size={16} />
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                            {characters.map((char) => (
-                                <div key={char.name} className="bg-amber-50 p-4 border-2 border-amber-900 shadow-md">
-                                    <h3 className="text-xl font-bold mb-2 text-amber-900">{char.name}</h3>
-                                    <p className="text-sm">{char.description}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <p className="text-lg">React is now rendering correctly!</p>
                     </div>
                 </div>
             );
         }
-        */
 
         console.log('About to render React component');
-        ReactDOM.render(React.createElement(LeagueNightStory), document.getElementById('root'));
+        ReactDOM.render(<LeagueNightStory />, document.getElementById('root'));
         console.log('React component rendered');
     </script>
 </body>
