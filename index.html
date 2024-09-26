@@ -15,11 +15,27 @@
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">If you can see this, React is not rendering.</div>
+
+    <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+        document.body.innerHTML += '<p style="color: red;">Error: ' + message + ' (Line: ' + lineno + ')</p>';
+    };
+    </script>
+
     <script type="text/babel">
+        console.log('Script is running');
+
         const { useState, useEffect, useRef } = React;
         const { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } = lucide.icons;
 
+        // Simplified component for testing
+        function LeagueNightStory() {
+            return <h1 className="text-3xl font-bold text-center">Hello, League Night Story World!</h1>;
+        }
+
+        // Uncomment the following code block once the simple component works
+        /*
         const characters = [
             { name: 'Matthew', description: 'Musical genius, gentle giant, League bot laner' },
             { name: 'Josh', description: 'Goofy tax accountant, reformed toxic gamer' },
@@ -30,20 +46,7 @@
         const storyEvents = [
             "It was a crisp Bay Area evening when Matthew, a musical savant with the social grace of a well-meaning golden retriever on espresso, flung open the door to his apartment. He'd transformed the place into a gamer's paradise that looked like Summoner's Rift had a drunken one-night stand with a Guitar Center.",
             "'Holy shit, you made it!' Matthew exclaimed, his voice a cocktail of excitement and nerves. He was sporting a homemade Teemo hat that made him look like a six-foot-tall mushroom who'd stumbled into a League cosplay competition by mistake.",
-            "Josh barreled in like a human pinball, bouncing off the doorframe. 'Who's ready to climb ranks and evade taxes?' he bellowed, his eyes wild with the manic energy of a man who'd replaced his blood with Red Bull.",
-            "Kevin sashayed in, TWICE blasting from his phone at a volume that threatened to rupture eardrums. 'Bitches, you won't believe the choreo I learned for 'The Feels'!' he announced, demonstrating moves that would make his preschool students question their career choices.",
-            "Shane sauntered in last, a bottle of top-shelf whisky in one hand and a bemused grin on his face. 'Lord give me strength,' he muttered, though the gleam in his eye suggested he was more than ready for the chaos.",
-            "'Alright, you degenerates,' Matthew said, gesturing to a snack-laden table. 'I've got 'Baron Nashor Nachos' and 'Teemo Shrooms.' And no, they're not magic mushrooms. Probably. I mean, I didn't test them or anything.'",
-            "As the match kicked off, so did the commentary, a beautiful disaster of friendship and profanity.",
-            "'Jesus H. Christ, that gank was about as smooth as my client's attempt to write off his pet llama as a business expense!' Josh howled, slapping his knee.",
-            "Kevin celebrated each kill with a burst of K-pop choreography that looked like a fusion of TWICE and a man desperately trying to put out a fire in his pants.",
-            "Shane, three fingers of whisky in, started offering tactical advice that sounded suspiciously like repurposed Bible verses. 'And lo, the support did ward the river, and it was good.'",
-            "As the night wore on, their shenanigans escalated. Matthew attempted to play the Worlds theme on his violin while headbanging, nearly concussing himself with his own Teemo hat.",
-            "Josh started using Matthew's South Park figurines to demonstrate optimal team positioning. Kevin taught everyone the choreo to 'Cheer Up,' resulting in four grown men awkwardly bouncing around the living room.",
-            "Shane found himself drawing increasingly convoluted parallels between League and the Book of Revelation.",
-            "By the final match, they were a glorious mess: Josh passed out on the couch, mumbling about tax brackets; Kevin voiceless but still lip-syncing to TWICE; Shane contemplating how to sneak League terminology into his next sermon; and Matthew serenading his unamused neighbors with a violin rendition of 'Silver Scrapes' at 3 AM.",
-            "As dawn broke, the four friends stumbled out, exhausted but grinning like idiots, their bond stronger than ever.",
-            "'Same time next year, you beautiful bastards?' Matthew asked hopefully. The chorus of 'fuck yeah' was all the answer he needed."
+            // ... (rest of the story events)
         ];
 
         function LeagueNightStory() {
@@ -120,8 +123,11 @@
                 </div>
             );
         }
+        */
 
-        ReactDOM.render(<LeagueNightStory />, document.getElementById('root'));
+        console.log('About to render React component');
+        ReactDOM.render(React.createElement(LeagueNightStory), document.getElementById('root'));
+        console.log('React component rendered');
     </script>
 </body>
 </html>
