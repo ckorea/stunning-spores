@@ -9,22 +9,15 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
-        body { font-family: 'Merriweather', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Bungee&display=swap');
+        body { font-family: 'Roboto', sans-serif; background-color: #010A13; color: #C8AA6E; }
+        h1, h2, h3 { font-family: 'Bungee', cursive; }
     </style>
 </head>
 <body>
-    <div id="root">If you can see this, React is not rendering.</div>
-
-    <script>
-    window.onerror = function(message, source, lineno, colno, error) {
-        document.body.innerHTML += '<p style="color: red;">Error: ' + message + ' (Line: ' + lineno + ')</p>';
-    };
-    </script>
+    <div id="root"></div>
 
     <script type="text/babel">
-        console.log('Script is running');
-
         const { useState, useRef } = React;
 
         const characters = [
@@ -81,13 +74,13 @@
             };
 
             return (
-                <div className="p-4 max-w-4xl mx-auto bg-yellow-50 min-h-screen flex items-center justify-center">
-                    <div className="w-full max-w-3xl bg-white border-8 border-double border-amber-900 p-8 shadow-2xl relative overflow-hidden">
-                        <h1 className="text-4xl font-bold text-center mb-6 text-amber-900">The Chronicles of League Night</h1>
+                <div className="p-4 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+                    <div className="w-full max-w-3xl bg-gray-900 border-4 border-yellow-600 p-8 shadow-2xl relative overflow-hidden rounded-lg">
+                        <h1 className="text-4xl font-bold text-center mb-6 text-yellow-400">The Chronicles of League Night</h1>
                         
                         <div className="mb-8 relative">
-                            <div ref={textContainerRef} className="h-80 overflow-y-auto mb-4 relative bg-amber-50 border-2 border-amber-900 p-6 shadow-inner">
-                                <p className="text-lg first-letter:text-5xl first-letter:float-left first-letter:mr-2 first-letter:mt-1">
+                            <div ref={textContainerRef} className="h-80 overflow-y-auto mb-4 relative bg-gray-800 border-2 border-yellow-600 p-6 shadow-inner rounded-lg">
+                                <p className="text-lg first-letter:text-5xl first-letter:float-left first-letter:mr-2 first-letter:mt-1 text-gray-300">
                                     {storyEvents[currentEvent]}
                                 </p>
                             </div>
@@ -95,21 +88,21 @@
                         
                         <div className="flex justify-between items-center mb-8">
                             <div className="flex space-x-2">
-                                <button onClick={goToStart} disabled={currentEvent === 0} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+                                <button onClick={goToStart} disabled={currentEvent === 0} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50">
                                     &#171;
                                 </button>
-                                <button onClick={goToPrevious} disabled={currentEvent === 0} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+                                <button onClick={goToPrevious} disabled={currentEvent === 0} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50">
                                     &#8249;
                                 </button>
                             </div>
-                            <span className="text-sm text-amber-900 font-bold">
+                            <span className="text-sm text-yellow-400 font-bold">
                                 Chapter {currentEvent + 1} of {storyEvents.length}
                             </span>
                             <div className="flex space-x-2">
-                                <button onClick={goToNext} disabled={currentEvent === storyEvents.length - 1} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+                                <button onClick={goToNext} disabled={currentEvent === storyEvents.length - 1} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50">
                                     &#8250;
                                 </button>
-                                <button onClick={goToEnd} disabled={currentEvent === storyEvents.length - 1} className="bg-amber-700 hover:bg-amber-800 text-white p-2 rounded">
+                                <button onClick={goToEnd} disabled={currentEvent === storyEvents.length - 1} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50">
                                     &#187;
                                 </button>
                             </div>
@@ -117,9 +110,9 @@
                         
                         <div className="grid grid-cols-2 gap-4">
                             {characters.map((char) => (
-                                <div key={char.name} className="bg-amber-50 p-4 border-2 border-amber-900 shadow-md">
-                                    <h3 className="text-xl font-bold mb-2 text-amber-900">{char.name}</h3>
-                                    <p className="text-sm">{char.description}</p>
+                                <div key={char.name} className="bg-gray-800 p-4 border-2 border-yellow-600 shadow-md rounded-lg">
+                                    <h3 className="text-xl font-bold mb-2 text-yellow-400">{char.name}</h3>
+                                    <p className="text-sm text-gray-300">{char.description}</p>
                                 </div>
                             ))}
                         </div>
@@ -128,9 +121,7 @@
             );
         }
 
-        console.log('About to render React component');
         ReactDOM.render(<LeagueNightStory />, document.getElementById('root'));
-        console.log('React component rendered');
     </script>
 </body>
 </html>
